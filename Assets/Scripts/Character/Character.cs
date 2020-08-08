@@ -13,6 +13,7 @@ public class Character : MonoBehaviour {
 	public int etherPoints = 80;
 	public bool knockedDown = false;
 	protected bool isOnGround = false;	
+	public Spell[] spells_prefabs;
 	public Spell[] spells;
 	public HashSet<Buff> buffs = new HashSet<Buff>();
 
@@ -22,8 +23,10 @@ public class Character : MonoBehaviour {
 	}
 
 	protected void StatusInitializate() {
-		foreach(Spell s in spells) {
-			s.lastUse = -100f;
+		spells = new Spell[spells_prefabs.Length];
+		for (int i = 0; i < spells_prefabs.Length; i++) {
+			spells[i] = Instantiate(spells_prefabs[i]);
+			spells[i].lastUse = -100f;	
 		}
 		
 		foreach(Buff b in buffs) {
